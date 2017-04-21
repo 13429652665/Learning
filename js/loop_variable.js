@@ -50,13 +50,34 @@ window.onload=function () {
         var l=prompt("输入行数");
         l=parseInt(l);
         for(var i=1;i<=l;i++){
-            var str="";
-            for(var j=1;j<=i;j++){
+            for(var j=1,str="";j<=i;j++){
                 str+=j+"*"+ i + "=" + j*i + " ";
             }
             console.log(str);
         }
     };
 };
+/*直接table中打印99乘法表*/
+document.write("<table>");
+for(var x=1;x<=9;x++){
+document.write("<tr>");
+    for(var y=1;y<=x;y++){
+        document.write("<th>"+y+"*"+ x+"="+y*x+"</th>");
+    }
+    document.write("</tr>")
+}
+document.write("</table>");
+
+/*获得5个闰年*/
+var year=prompt("输入年份");
+var getLeapYear=parseInt(year);
+for(var yearMun=0;yearMun<5;yearMun==0?getLeapYear++:getLeapYear+=4){
+    if(getLeapYear%4==0&&getLeapYear%100!=0||getLeapYear%400==0){
+        console.log(getLeapYear);
+        yearMun++;
+    }
+}
+
+
 
 //    找出从第1号学员到第500号学员中成绩大于90的学员；
