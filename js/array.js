@@ -150,3 +150,106 @@ console.log(bb.sort(
         return 0;
     }
 ));
+
+/*栈和队列*/
+function bus() {
+    var bus=[];
+    for(var i=0;i<=5;i++){
+        bus.push("乘客"+ i);
+        console.log(bus);
+    }
+    while (bus.length!=0){
+        var first=bus.shift();
+        console.log(first+"下车");
+        console.log(bus);
+    }
+}
+bus();
+/*十进制转二进制*/
+function dec2bin(dec) {
+    var bin=[];
+    while (dec>0){
+        bin.unshift(dec%2);
+        dec=parseInt(dec/2);
+    }
+    return bin.join("");
+}
+console.log(dec2bin(2));
+
+function panicBuying() {
+    var n=[];
+
+    var iphone=5;
+    for(var i=1;i<=6;i++){
+        n.push("顾客"+i);
+    }
+    console.log(n+"在排队抢iphone");
+    while (iphone>0){
+        var first=n.shift();
+        console.log(first+"抢到一部：还剩"+(--iphone)+"部");
+        console.log(n+"还在抢");
+    }
+    console.log(n+"没抢到");
+}
+panicBuying();
+
+/*二维数组*/
+(function erWei() {
+    var arr=[];
+    arr[0]=["石家庄","保定","唐山"];
+    arr[1]=["德州","济南","烟台"];
+    console.log(arr[0][2]);
+    console.log(arr[1][1]);
+})();
+function getCities(prov) {
+    var provinces=["北京市","河北省","河南省"];
+    var cities=[
+        ["朝阳区","海淀区","丰台区"],
+        ["廊坊市","石家庄市","唐山市"],
+        ["洛阳市","开封市","郑州市"]
+    ];
+    var i=provinces.indexOf(prov);
+    if(i!=-1){
+        console.log(cities[i].join(" "));
+    }else{
+        console.log("没有找到");
+    }
+}
+var data=[
+    [2,2,4,8],
+    [8,4,2,2],
+    [8,2,4,2],
+    [2,4,8,4]
+];
+function isFull() {
+    for(var row=0;row<data.length;row++){
+        for(var col=0;col<data[row].length;col++){
+            if(data[row][col]==0){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+console.log(isFull());
+function isGameOver() {
+    if (!isFull()){
+        return false;
+    }
+    for(var row=0;row<data.length;row++){
+        for(var col=0;col<data[row][col];col++){
+            if(col!=3){
+                if(data[row][col]==data[row][col+1]){
+                    return false;
+                }
+            }
+            if(row!=3){
+                if(data[row][col]==data[row+1][col]){
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+console.log(isGameOver());
