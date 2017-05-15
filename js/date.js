@@ -40,7 +40,7 @@ function getDueDate(days) {
     }
     console.log(now.toLocaleDateString());
 }
-getDueDate(9);
+// getDueDate(9);
 
 /*将当前日期格式化
 * ****年**月**日 星期*  上午/下午  **:**:**
@@ -49,18 +49,24 @@ getDueDate(9);
 function formatNow(date) {
     var arr=[];
     arr.push(date.getFullYear());
-    var month=date.getMonth();
-    if(month<10){
-        month="0"+month;
-    }
-    arr.push(month);
+    var month=date.getMonth()+1;
+    arr.push(month<10?"0"+month:month);
     var day=date.getDate();
-    if (day<10){
-        day="0"+day;
-    }
-    arr.push(day);
+    arr.push(day<10?"0"+day:day);
     var weekday=["日","一","二","三","四","五","六"];
     arr.push(weekday[date.getDay()]);
+    var hours=date.getHours();
+    arr.push(hours<12?"上午":"下午");
+    hours>12&&(hours-=12);
+    arr.push(hours<10?"0"+hours:hours);
+    var minuter=date.getMinutes();
+   arr.push(minuter<10?"0"+minuter:minuter);
+    var seconds=date.getSeconds();
+    arr.push(seconds<10?"0"+seconds:seconds);
+    var str=arr.join("");
+    console.log(str);
+    var reg=/(\d{4})(\d{2})(\d{2})([日一-六])([上下]午)(\d{2})(\d{2})(\d{2})/;
+    console.log(str.replace(reg,"$1年$2月$3日 星期$4 $5 $6:$7:$8"));
 
 }
 formatNow(new Date());
