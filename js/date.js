@@ -2,7 +2,6 @@
 
 // var now=new Date();
 // var time=new Date("xx/xx/xx");
-
 function hire() {
    /* var date=new Date();
     var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
@@ -45,7 +44,6 @@ function getDueDate(days) {
 /*将当前日期格式化
 * ****年**月**日 星期*  上午/下午  **:**:**
 * */
-
 function formatNow(date) {
     var arr=[];
     arr.push(date.getFullYear());
@@ -53,23 +51,30 @@ function formatNow(date) {
     arr.push(month<10?"0"+month:month);
     var day=date.getDate();
     arr.push(day<10?"0"+day:day);
-    var weekday=["日","一","二","三","四","五","六"];
+    var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
     arr.push(weekday[date.getDay()]);
     var hours=date.getHours();
     arr.push(hours<12?"上午":"下午");
     hours>12&&(hours-=12);
     arr.push(hours<10?"0"+hours:hours);
     var minuter=date.getMinutes();
-   arr.push(minuter<10?"0"+minuter:minuter);
+    arr.push(minuter<10?"0"+minuter:minuter);
     var seconds=date.getSeconds();
     arr.push(seconds<10?"0"+seconds:seconds);
     var str=arr.join("");
-    console.log(str);
-    var reg=/(\d{4})(\d{2})(\d{2})([日一-六])([上下]午)(\d{2})(\d{2})(\d{2})/;
-    console.log(str.replace(reg,"$1年$2月$3日 星期$4 $5 $6:$7:$8"));
-
+    var reg=/(\d{4})(\d{2})(\d{2})(星期[日一-六])([上下]午)(\d{2})(\d{2})(\d{2})/;
+    console.log(str.replace(reg,"$1年$2月$3日 $4 $5 $6:$7:$8"));
 }
 formatNow(new Date());
+
+/*错误/异常处理*/
+/*  SyntaxError：语法错误
+*   ReferenceError：引用错误。找不到变量或对象
+*   TypeError：类型错误，错误的使用了对象中的方法
+*   RangeError：范围错误，参数超范围
+*   EvalError：调用eval函数时出错
+*   URLError：URL错误
+* */
 /***Function对象
  * 1.arguments对象
  * 2.Function对象的本质
@@ -85,7 +90,7 @@ formatNow(new Date());
 // 重载：程序中可以定义多个相同函数名，不同参数列表的函数
 //js不支持重载但可以用arguments对象模拟重载效果
 // arguments对象：函数对象内部，自动创建的专门接手所有参数值得类数组对象。
-function arguments() {
+function argument() {
     for(var i=0,sum=0;i<arguments.length;i++){
          sum+=arguments[i];
     }
@@ -125,3 +130,32 @@ var arr=[1,12,123,3,2,23];
 //    调用后：默认仅释放活动对象
 //           作用域链中活动对象的引用出栈
 //
+//      3.**匿名函数：定义时，不指定函数名的函数
+//         何时使用：2大用途：
+//        1.匿名函数自调：自定义，立即执行
+//                       执行完立刻释放
+//          何时使用：只有确定函数只执行一次！
+//           如何自调：(function(){})();
+//           匿名函数自调不提前
+//        3.匿名函数回调：向将函数作为对象传递给另一个函数，由另一个函数自主决在需要时调用
+
+// *******  4.闭包：
+//  ******    问题：全局变量和局部变量的缺陷
+//    ****    全局变量：容易全局污染
+//     ***    局部变量：无法分享,不能长久保存
+//      **    既可以共享，长久保存，又不会全局污染的变量
+//       *    解决：3步：闭包三特点：
+//      **    1.定义外层函数，封装被保存的局部变量
+//     ***    2.定义内层函数，执行对外层函数局部变量的操作
+//    ****    3.外层函数返回内层函数的对象，
+//   *****      并且外层函数被调用，结果被保存在全局变量中
+// *******   何时使用：既反复使用局部变量，又避免全局污染就要用闭包
+
+//           判断闭包执行结果：
+//          1.外层函数被调用几次，就有几个受保护的局部变量副本
+//          2.来自一个闭包的函数调用几次，受保护的局部变量就变化几次
+
+/*定义一个取号机函数
+* 每调用一次，顺序生产一个永不重复的序号
+* */
+
